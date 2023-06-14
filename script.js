@@ -1,2 +1,3 @@
-// testing whether linking the js to the html is working or not
-console.log("Hello")
+
+const canvas = document.getElementById("canvas");
+const pen = canvas.getContext("2d");
