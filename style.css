@@ -6,7 +6,7 @@ body {
     margin: 0;
 }
 
-#dynamic-section {
+#canvas {
     position: fixed;
 
     height: 60vh;
