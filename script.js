@@ -24,6 +24,22 @@ const drawArc = (center, radius) => {
     pen.arc(center.x, center.y, radius, Math.PI, 2 * Math.PI);
     pen.stroke();
 }
+
+const drawAllArcs = (start, end, nrOfArcs) => {
+    let length = end.x - start.x;
+
+    const center = {
+        x: (end.x + start.x) / 2,
+        y: start.y
+    };
+
+    let space = (length / 2) / (nrOfArcs + 1);
+    let currRadius = 0;
+    for (var i = 0; i < nrOfArcs; i++) {
+        currRadius = currRadius + space;
+        drawArc(center, currRadius)
+    }
+}
     x: canvas.width * 0.1,
     y: canvas.height * 0.9
 }
