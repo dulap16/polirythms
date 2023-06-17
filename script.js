@@ -1,33 +1,12 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
-const drawBaseLine = () => {
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
 
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-
-    const canvasPos = {
-        x: canvas.clientLeft,
-        y: canvas.clientTop
-    };
-    console.log(canvas.clientWidth + ' ' + canvas.clientHeight)
-
-
-    const startPoint = {
-        x: canvas.width * 0.1,
-        y: canvas.height * 0.9
-    }
-
-    const endPoint = {
-        x: canvas.width * 0.9,
-        y: canvas.height * 0.9
-    }
-
-    console.log(startPoint.x + ' ' + startPoint.y + '\n' + endPoint.x + ' ' + endPoint.y);
-
+const drawBaseLine = (startPoint, endPoint) => {
     pen.strokeStyle = "#D0D0D0";
-    pen.lineWidth = 5;
-
+    pen.lineWidth = 4;
 
     pen.beginPath();
     pen.moveTo(startPoint.x, startPoint.y);
@@ -35,4 +14,40 @@ const drawBaseLine = () => {
     pen.stroke();
 }
 
-drawBaseLine();
+
+const drawArc = (center, radius) => {
+    pen.beginPath();
+    pen.arc(center.x, center.y, radius, Math.PI, 2 * Math.PI);
+    pen.stroke();
+}
+
+const drawAllArcs = (start, end, nrOfArcs) => {
+    let length = end.x - start.x;
+
+    const center = {
+        x: (end.x + start.x) / 2,
+        y: start.y
+    };
+
+    let space = (length / 2) / (nrOfArcs + 1);
+    let currRadius = 0;
+    for (var i = 0; i < nrOfArcs; i++) {
+        currRadius = currRadius + space;
+        drawArc(center, currRadius)
+    }
+}
+
+const startPoint = {
+    x: canvas.width * 0.1,
+    y: canvas.height * 0.9
+}
+
+const endPoint = {
+    x: canvas.width * 0.9,
+    y: canvas.height * 0.9
+}
+
+
+
+drawBaseLine(startPoint, endPoint);
+drawAllArcs(startPoint, endPoint, 10);
