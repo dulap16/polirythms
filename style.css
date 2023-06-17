@@ -4,7 +4,7 @@ body {
 }
 
 #canvas {
-    height: 99.3vh;
     width: 100vw;
-    background-color: rgb(25, 25, 25);
+    height: 99.4vh;
+    background-color: rgb(31, 31, 31);
 }
