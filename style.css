@@ -1,23 +1,10 @@
 body {
     background-color: rgb(38, 38, 38);
-    width: 100vw;
-    height: 100vh;
-
     margin: 0;
 }
 
 #canvas {
-    position: fixed;
-
-    height: 60vh;
-    width: 80vw;
-
-    top: 50%; 
-    left: 50%;
-    margin-top: -30vh;
-    margin-left: -40vw;
-
-    border-radius: 7%;
-
+    height: 99.3vh;
+    width: 100vw;
     background-color: rgb(25, 25, 25);
 }
