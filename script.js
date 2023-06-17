@@ -1,10 +1,12 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
+
 const drawBaseLine = (startPoint, endPoint) => {
 
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+
 
     pen.strokeStyle = "#D0D0D0";
     pen.lineWidth = 5;
