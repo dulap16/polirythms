@@ -21,6 +21,7 @@ const drawBaseLine = (startPoint, endPoint) => {
 const drawArc = (center, radius) => {
     pen.beginPath();
     pen.arc(center.x, center.y, radius, 0, Math.PI);
+    pen.arc(center.x, center.y, radius, Math.PI, 2 * Math.PI);
     pen.stroke();
 }
     x: canvas.width * 0.1,
