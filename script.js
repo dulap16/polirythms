@@ -3,6 +3,9 @@ const pen = canvas.getContext("2d");
 
 const drawBaseLine = () => {
 
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
     const canvasPos = {
         x: canvas.clientLeft,
         y: canvas.clientTop
