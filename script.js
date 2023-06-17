@@ -20,7 +20,6 @@ const drawBaseLine = (startPoint, endPoint) => {
 
 const drawArc = (center, radius) => {
     pen.beginPath();
-    pen.arc(center.x, center.y, radius, 0, Math.PI);
     pen.arc(center.x, center.y, radius, Math.PI, 2 * Math.PI);
     pen.stroke();
 }
@@ -40,6 +39,11 @@ const drawAllArcs = (start, end, nrOfArcs) => {
         drawArc(center, currRadius)
     }
 }
+
+
+
+
+const startPoint = {
     x: canvas.width * 0.1,
     y: canvas.height * 0.9
 }
@@ -49,4 +53,7 @@ const endPoint = {
     y: canvas.height * 0.9
 }
 
+
+
 drawBaseLine(startPoint, endPoint);
+drawAllArcs(startPoint, endPoint, 5);
