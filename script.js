@@ -14,6 +14,12 @@ const drawBaseLine = (startPoint, endPoint) => {
     pen.stroke();
 }
 
+const drawCircle = (pos, radius) => {
+    pen.beginPath();
+    pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
+    pen.fill();
+}
+
 
 const drawArc = (center, radius) => {
     pen.beginPath();
