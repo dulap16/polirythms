@@ -1,17 +1,27 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
-canvas.width = canvas.clientWidth;
-canvas.height = canvas.clientHeight;
+const initialise = () => {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
-const drawBaseLine = (startPoint, endPoint) => {
     pen.strokeStyle = "#D0D0D0";
+    pen.fillStyle = "#D0D0D0";
+    pen.lineWidth = 4;
+}
+const drawBaseLine = (startPoint, endPoint) => {
     pen.lineWidth = 4;
 
     pen.beginPath();
     pen.moveTo(startPoint.x, startPoint.y);
     pen.lineTo(endPoint.x, endPoint.y);
     pen.stroke();
+}
+
+const drawCircle = (pos, radius) => {
+    pen.beginPath();
+    pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
+    pen.fill();
 }
 
 
@@ -30,12 +40,23 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     };
 
     let space = (length / 2) / (nrOfArcs + 1);
+    let circleRadius = space / 3.8;
     let currRadius = 0;
     for (var i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + space;
         drawArc(center, currRadius)
+
+        let circlePos = {
+            x: center.x - currRadius,
+            y: center.y
+        };
+        drawCircle(circlePos, circleRadius);
     }
 }
+
+
+
+initialise();
 
 const startPoint = {
     x: canvas.width * 0.1,
@@ -46,7 +67,6 @@ const endPoint = {
     x: canvas.width * 0.9,
     y: canvas.height * 0.9
 }
-
 
 
 drawBaseLine(startPoint, endPoint);
