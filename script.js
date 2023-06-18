@@ -40,10 +40,17 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     };
 
     let space = (length / 2) / (nrOfArcs + 1);
+    let circleRadius = space / 3.8;
     let currRadius = 0;
     for (var i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + space;
         drawArc(center, currRadius)
+
+        let circlePos = {
+            x: center.x - currRadius,
+            y: center.y
+        };
+        drawCircle(circlePos, circleRadius);
     }
 }
 
