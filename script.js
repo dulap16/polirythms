@@ -1,11 +1,15 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
-canvas.width = canvas.clientWidth;
-canvas.height = canvas.clientHeight;
+const initialise = () => {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
-const drawBaseLine = (startPoint, endPoint) => {
     pen.strokeStyle = "#D0D0D0";
+    pen.fillStyle = "#D0D0D0";
+    pen.lineWidth = 4;
+}
+const drawBaseLine = (startPoint, endPoint) => {
     pen.lineWidth = 4;
 
     pen.beginPath();
@@ -43,6 +47,10 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     }
 }
 
+
+
+initialise();
+
 const startPoint = {
     x: canvas.width * 0.1,
     y: canvas.height * 0.9
@@ -52,7 +60,6 @@ const endPoint = {
     x: canvas.width * 0.9,
     y: canvas.height * 0.9
 }
-
 
 
 drawBaseLine(startPoint, endPoint);
