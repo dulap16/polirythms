@@ -18,7 +18,7 @@ const drawBaseLine = (startPoint, endPoint) => {
     pen.stroke();
 }
 
-const drawCircle = (pos, radius) => {
+const drawCircle = (pos, radius, angle) => {
     pen.beginPath();
     pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
     pen.fill();
@@ -50,32 +50,26 @@ const drawAllArcs = (start, end, nrOfArcs) => {
             x: center.x - currRadius,
             y: center.y
         };
-        drawCircle(circlePos, circleRadius);
+        drawCircle(circlePos, circleRadius, angle);
     }
 }
 
-let test = 0;
-const testRefreshRate = () => {
-    console.log(test);
-    test++;
+const draw = (nrOfArcs) => {
+    const startPoint = {
+        x: canvas.width * 0.1,
+        y: canvas.height * 0.9
+    }
 
-    Window.requestAnimationFrame(testRefreshRate());
+    const endPoint = {
+        x: canvas.width * 0.9,
+        y: canvas.height * 0.9
+    }
+
+    drawBaseLine(startPoint, endPoint);
+    drawAllArcs(startPoint, endPoint, nrOfArcs);
 }
+
 
 initialise();
 
-const startPoint = {
-    x: canvas.width * 0.1,
-    y: canvas.height * 0.9
-}
-
-const endPoint = {
-    x: canvas.width * 0.9,
-    y: canvas.height * 0.9
-}
-
-
-drawBaseLine(startPoint, endPoint);
-drawAllArcs(startPoint, endPoint, 10);
-
-testRefreshRate();
+draw(10);
