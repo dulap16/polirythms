@@ -54,7 +54,13 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     }
 }
 
+let radius = 1;
+
 const draw = (nrOfArcs) => {
+    pen.clearRect(0, 0, canvas.width, canvas.height);
+    radius = radius + 1;
+
+
     const startPoint = {
         x: canvas.width * 0.1,
         y: canvas.height * 0.9
@@ -78,7 +84,9 @@ const draw = (nrOfArcs) => {
 
     console.log(center.x + ' ' + center.y);
 
-    drawArc(center, 100);
+    drawArc(center, radius);
+
+    requestAnimationFrame(draw);
 }
 
 
