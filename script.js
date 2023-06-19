@@ -18,7 +18,7 @@ const drawBaseLine = (startPoint, endPoint) => {
     pen.stroke();
 }
 
-const drawCircle = (pos, radius, angle) => {
+const drawCircle = (pos, radius) => {
     pen.beginPath();
     pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
     pen.fill();
@@ -50,7 +50,7 @@ const drawAllArcs = (start, end, nrOfArcs) => {
             x: center.x - currRadius,
             y: center.y
         };
-        drawCircle(circlePos, circleRadius, angle);
+        drawCircle(circlePos, circleRadius);
     }
 }
 
@@ -76,6 +76,7 @@ const draw = (nrOfArcs) => {
 
     let length = endPoint.x - startPoint.x;
     let space = (length / 2) / (nrOfArcs + 1);
+    let circleRadius = space / 3.8;
 
     const center = {
         x: (startPoint.x + endPoint.x) / 2,
@@ -86,11 +87,11 @@ const draw = (nrOfArcs) => {
         currRadius = currRadius + space;
         drawArc(center, currRadius)
 
-        // const circlePos = {
-        //     x: center.x - currRadius,
-        //     y: center.y
-        // };
-        // drawCircle(circlePos, circleRadius, angle);
+        const circlePos = {
+            x: center.x - currRadius,
+            y: center.y
+        };
+        drawCircle(circlePos, circleRadius);
     }
 
 
