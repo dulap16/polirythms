@@ -54,7 +54,13 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     }
 }
 
+let test = 0;
+const testRefreshRate = () => {
+    console.log(test);
+    test++;
 
+    Window.requestAnimationFrame(testRefreshRate());
+}
 
 initialise();
 
@@ -71,3 +77,5 @@ const endPoint = {
 
 drawBaseLine(startPoint, endPoint);
 drawAllArcs(startPoint, endPoint, 10);
+
+testRefreshRate();
