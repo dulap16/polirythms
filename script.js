@@ -66,7 +66,19 @@ const draw = (nrOfArcs) => {
     }
 
     drawBaseLine(startPoint, endPoint);
-    drawAllArcs(startPoint, endPoint, nrOfArcs);
+    // drawAllArcs(startPoint, endPoint, nrOfArcs);
+
+    let length = endPoint.x - startPoint.x;
+    let space = (length / 2) / (nrOfArcs + 1);
+
+    const center = {
+        x: (startPoint.x + endPoint.x) / 2,
+        y: startPoint.y
+    };
+
+    console.log(center.x + ' ' + center.y);
+
+    drawArc(center, 100);
 }
 
 
