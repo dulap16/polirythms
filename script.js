@@ -54,12 +54,13 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     }
 }
 
-let radius = 1;
+let currRadius = 0;
 
+
+const startTime = new Date().getTime;
 const draw = (nrOfArcs) => {
     pen.clearRect(0, 0, canvas.width, canvas.height);
-    radius = radius + 1;
-
+    currRradius = 0;
 
     const startPoint = {
         x: canvas.width * 0.1,
@@ -72,7 +73,6 @@ const draw = (nrOfArcs) => {
     }
 
     drawBaseLine(startPoint, endPoint);
-    // drawAllArcs(startPoint, endPoint, nrOfArcs);
 
     let length = endPoint.x - startPoint.x;
     let space = (length / 2) / (nrOfArcs + 1);
@@ -81,6 +81,19 @@ const draw = (nrOfArcs) => {
         x: (startPoint.x + endPoint.x) / 2,
         y: startPoint.y
     };
+
+    for (var i = 0; i < nrOfArcs; i++) {
+        currRadius = currRadius + space;
+        drawArc(center, currRadius)
+
+        // const circlePos = {
+        //     x: center.x - currRadius,
+        //     y: center.y
+        // };
+        // drawCircle(circlePos, circleRadius, angle);
+    }
+
+
 
     console.log(center.x + ' ' + center.y);
 
