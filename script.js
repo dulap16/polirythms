@@ -71,7 +71,7 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 let angularVelocities = [];
 const calculateAngVelocities = (nrOfArcs) => {
-    let totalTimeOfSimulation = 100;
+    let totalTimeOfSimulation = 300;
     let totalDistTravelled = 100 * Math.PI;
 
     for (i = 0; i < nrOfArcs; i++) {
