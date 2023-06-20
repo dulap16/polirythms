@@ -18,7 +18,7 @@ const drawBaseLine = (startPoint, endPoint) => {
     pen.stroke();
 }
 
-const drawCircle = (pos, radius, angle) => {
+const drawCircle = (pos, radius) => {
     pen.beginPath();
     pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
     pen.fill();
@@ -50,17 +50,52 @@ const drawAllArcs = (start, end, nrOfArcs) => {
             x: center.x - currRadius,
             y: center.y
         };
-        drawCircle(circlePos, circleRadius, angle);
+        drawCircle(circlePos, circleRadius);
     }
 }
 
+const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
+    const x = Math.cos(angle) * distFromCenter;
+    const y = Math.sin(angle) * distFromCenter;
+
+    const circlePos = {
+        x: x + center.x,
+        y: y + center.y
+    };
+
+    drawCircle(circlePos, circleRadius);
+}
+
+
+
+
+let angularVelocities = [];
+const calculateAngVelocities = (nrOfArcs) => {
+    let totalTimeOfSimulation = 300;
+    let totalDistTravelled = 100 * Math.PI;
+
+    for (i = 0; i < nrOfArcs; i++) {
+        angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
+        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
+
+        console.log(angularVelocities[i]);
+    }
+}
+
+
+const startTime = Date.now();
+
+let nrOfArcs = 10;
 let currRadius = 0;
+let time = 900;
+const draw = () => {
+    let currRadius = 0;
+    let currentTime = Date.now();
+    const timeElapsed = (currentTime - startTime) / 1000;
+    console.log(timeElapsed);
 
-
-const startTime = new Date().getTime;
-const draw = (nrOfArcs) => {
     pen.clearRect(0, 0, canvas.width, canvas.height);
-    currRradius = 0;
+
 
     const startPoint = {
         x: canvas.width * 0.1,
@@ -72,37 +107,39 @@ const draw = (nrOfArcs) => {
         y: canvas.height * 0.9
     }
 
-    drawBaseLine(startPoint, endPoint);
-
-    let length = endPoint.x - startPoint.x;
-    let space = (length / 2) / (nrOfArcs + 1);
-
     const center = {
         x: (startPoint.x + endPoint.x) / 2,
         y: startPoint.y
     };
 
-    for (var i = 0; i < nrOfArcs; i++) {
-        currRadius = currRadius + space;
+    drawBaseLine(startPoint, endPoint);
+
+
+    let baselineLength = endPoint.x - startPoint.x;
+    let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
+    let circleRadius = spaceBetweenArcs / 3.8;
+
+    for (i = 0; i < nrOfArcs; i++) {
+        currRadius = currRadius + spaceBetweenArcs;
         drawArc(center, currRadius)
 
-        // const circlePos = {
-        //     x: center.x - currRadius,
-        //     y: center.y
-        // };
-        // drawCircle(circlePos, circleRadius, angle);
+        let angOfCurrCircle = angularVelocities[i] * timeElapsed;
+        angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
+        if (angOfCurrCircle < Math.PI)
+            angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
+
+        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
     }
-
-
-
-    console.log(center.x + ' ' + center.y);
-
-    drawArc(center, radius);
 
     requestAnimationFrame(draw);
 }
 
+function main() {
+    initialise();
+    calculateAngVelocities(10);
 
-initialise();
+    draw(10);
+}
 
-draw(10);
+
+main();
