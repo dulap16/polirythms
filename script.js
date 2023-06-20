@@ -83,6 +83,7 @@ const calculateAngVelocities = (nrOfArcs) => {
 
 const startTime = new Date().getTime;
 
+let currRadius = 0;
 let time = 900;
 const draw = (nrOfArcs) => {
     const currentTime = new Date().getTime;
@@ -112,17 +113,14 @@ const draw = (nrOfArcs) => {
     let baselineLength = endPoint.x - startPoint.x;
     let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
     let circleRadius = spaceBetweenArcs / 3.8;
-    let totalDistTravelled = 100 * Math.PI;
 
     for (var i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        angularVelocity[i] = totalDistTravelled / time;
-        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
         drawArc(center, currRadius)
 
+        let angOfCurrCircle = angularVelocities[i] * timeElapsed;
 
-
-        drawCircle(circlePos, circleRadius);
+        drawCircleAtAngle(4.2, currRadius, circleRadius, center);
     }
 
     drawArc(center, radius);
