@@ -83,15 +83,16 @@ const calculateAngVelocities = (nrOfArcs) => {
 }
 
 
-const startTime = new Date().getTime;
+const startTime = Date.now();
 
 let nrOfArcs = 10;
 let currRadius = 0;
 let time = 900;
 const draw = () => {
     let currRadius = 0;
-    const currentTime = new Date().getTime;
-    const timeElapsed = (startTime - currentTime) / 1000;
+    let currentTime = Date.now();
+    const timeElapsed = (currentTime - startTime) / 1000;
+    console.log(timeElapsed);
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
