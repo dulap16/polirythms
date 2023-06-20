@@ -54,6 +54,18 @@ const drawAllArcs = (start, end, nrOfArcs) => {
     }
 }
 
+const drawCircleAtAngle = (angle, distFromCenter, circleRadius) => {
+    const x = Math.cos(angle) * distFromCenter;
+    const y = Math.sin(angle) * distFromCenter;
+
+    const circlePos = {
+        x: x,
+        y: y
+    };
+
+    drawCircle(circlePos, circleRadius);
+}
+
 let currRadius = 0;
 
 
