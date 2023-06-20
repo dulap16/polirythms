@@ -130,7 +130,12 @@ const draw = (nrOfArcs) => {
     requestAnimationFrame(draw);
 }
 
+function main() {
+    initialise();
+    calculateAngVelocities();
 
-initialise();
+    draw(10);
+}
 
-draw(10);
+
+main();
