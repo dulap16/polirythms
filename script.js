@@ -70,15 +70,14 @@ let currRadius = 0;
 
 
 const startTime = new Date().getTime;
-let angles = [];
 let angularVelocities = [];
-let time = 3000;
+let time = 900;
 const draw = (nrOfArcs) => {
     const currentTime = new Date().getTime;
-
+    const timeElapsed = (startTime - currentTime) / 1000;
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
-    currRradius = 0;
+
 
     const startPoint = {
         x: canvas.width * 0.1,
@@ -90,22 +89,23 @@ const draw = (nrOfArcs) => {
         y: canvas.height * 0.9
     }
 
-    drawBaseLine(startPoint, endPoint);
-
-    let length = endPoint.x - startPoint.x;
-    let space = (length / 2) / (nrOfArcs + 1);
-    let circleRadius = space / 3.8;
-    let distance = 100 * Math.PI;
-
     const center = {
         x: (startPoint.x + endPoint.x) / 2,
         y: startPoint.y
     };
 
+    drawBaseLine(startPoint, endPoint);
+
+
+    let baselineLength = endPoint.x - startPoint.x;
+    let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
+    let circleRadius = spaceBetweenArcs / 3.8;
+    let totalDistTravelled = 100 * Math.PI;
+
     for (var i = 0; i < nrOfArcs; i++) {
-        currRadius = currRadius + space;
-        angularVelocity[i] = distance / time;
-        distance = distance - 2 * Math.PI;
+        currRadius = currRadius + spaceBetweenArcs;
+        angularVelocity[i] = totalDistTravelled / time;
+        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
         drawArc(center, currRadius)
 
         const circlePos = {
