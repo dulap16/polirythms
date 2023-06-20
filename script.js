@@ -66,11 +66,23 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius) => {
     drawCircle(circlePos, circleRadius);
 }
 
-let currRadius = 0;
+
+
+
+let angularVelocities = [];
+const calculateAngVelocities = (nrOfArcs) => {
+    let totalTimeOfSimulation = 900;
+    let totalDistTravelled = 100 * Math.PI;
+
+    for (i = 0; i < nrOfArcs; i++) {
+        angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
+        totalDistTravelled = totalDistTravelled - 4 * Math.PI;
+    }
+}
 
 
 const startTime = new Date().getTime;
-let angularVelocities = [];
+
 let time = 900;
 const draw = (nrOfArcs) => {
     const currentTime = new Date().getTime;
@@ -108,10 +120,7 @@ const draw = (nrOfArcs) => {
         totalDistTravelled = totalDistTravelled - 2 * Math.PI;
         drawArc(center, currRadius)
 
-        const circlePos = {
-            x: center.x - currRadius,
-            y: center.y
-        };
+
 
         drawCircle(circlePos, circleRadius);
     }
