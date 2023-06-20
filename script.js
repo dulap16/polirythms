@@ -124,6 +124,9 @@ const draw = () => {
         drawArc(center, currRadius)
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
+        angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
+        if (angOfCurrCircle < Math.PI)
+            angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
         drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
     }
