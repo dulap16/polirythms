@@ -71,12 +71,12 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 let angularVelocities = [];
 const calculateAngVelocities = (nrOfArcs) => {
-    let totalTimeOfSimulation = 900;
+    let totalTimeOfSimulation = 100;
     let totalDistTravelled = 100 * Math.PI;
 
     for (i = 0; i < nrOfArcs; i++) {
         angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
-        totalDistTravelled = totalDistTravelled - 4 * Math.PI;
+        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
 
         console.log(angularVelocities[i]);
     }
@@ -119,23 +119,21 @@ const draw = () => {
     let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
     let circleRadius = spaceBetweenArcs / 3.8;
 
-    for (var i = 0; i < nrOfArcs; i++) {
+    for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
         drawArc(center, currRadius)
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
 
-        drawCircleAtAngle(4.2, currRadius, circleRadius, center);
+        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
     }
-
-    // drawArc(center, radius);
 
     requestAnimationFrame(draw);
 }
 
 function main() {
     initialise();
-    calculateAngVelocities();
+    calculateAngVelocities(10);
 
     draw(10);
 }
