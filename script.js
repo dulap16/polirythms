@@ -157,6 +157,9 @@ const draw = () => {
 
 function main() {
     initCanvas();
+    initAngVelocities(10);
+    initSounds(10);
+    initNextHits();
 
     draw(10);
 }
