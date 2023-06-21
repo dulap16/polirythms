@@ -113,7 +113,6 @@ const draw = () => {
     let currRadius = 0;
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
-    console.log(timeElapsed);
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
