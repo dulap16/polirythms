@@ -64,8 +64,8 @@ const drawBaseLine = (startPoint, endPoint) => {
 }
 
 const drawCircle = (pos, radius) => {
-    pen.strokeStyle = "#D0D0D0";
-    pen.fillStyle = "#D0D0D0";
+    pen.strokeStyle = "white";
+    pen.fillStyle = "white";
 
     pen.beginPath();
     pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
