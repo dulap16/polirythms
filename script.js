@@ -2,13 +2,6 @@ const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
 const colors = [
-    "#D0E7F5",
-    "#D9E7F4",
-    "#D6E3F4",
-    "#BCDFF5",
-    "#B7D9F4",
-    "#C3D4F0",
-    "#9DC1F3",
     "#9AA9F4",
     "#8D83EF",
     "#AE69F0",
@@ -25,8 +18,33 @@ const colors = [
     "#FEDCD1"
 ];
 
+let nextHits = [];
+let sounds = [];
 
-const initialise = () => {
+const calculateNextHit = (lastHit, angVelocity) => {
+    const nextHit = lastHit + (Math.PI / angVelocity);
+
+    return nextHit;
+}
+
+
+const initNextHits = (nrOfArcs) => {
+    for (i = 0; i < nrOfArcs; i++) {
+        nextHits[i] = calculateNextHit(0, angularVelocities[i]);
+    }
+}
+
+const initSounds = (nrOfArcs) => {
+    nrOfArcs = Math.min(nrOfArcs, 10);
+
+    for (i = 0; i < nrOfArcs; i++) {
+        sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
+        sounds[i].volume = 0.1;
+    }
+}
+
+
+const initCanvas = () => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -75,15 +93,13 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 
 let angularVelocities = [];
-const calculateAngVelocities = (nrOfArcs) => {
-    let totalTimeOfSimulation = 300;
+const initAngVelocities = (nrOfArcs) => {
+    let totalTimeOfSimulation = 900;
     let totalDistTravelled = 100 * Math.PI;
 
     for (i = 0; i < nrOfArcs; i++) {
         angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
         totalDistTravelled = totalDistTravelled - 2 * Math.PI;
-
-        console.log(angularVelocities[i]);
     }
 }
 
@@ -97,7 +113,6 @@ const draw = () => {
     let currRadius = 0;
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
-    console.log(timeElapsed);
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -126,7 +141,7 @@ const draw = () => {
 
     for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i + 7])
+        drawArc(center, currRadius, colors[i])
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
@@ -134,14 +149,21 @@ const draw = () => {
             angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
         drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
+
+        if (timeElapsed >= nextHits[i]) {
+            nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
+            sounds[i].play();
+        }
     }
 
     requestAnimationFrame(draw);
 }
 
 function main() {
-    initialise();
-    calculateAngVelocities(10);
+    initCanvas();
+    initAngVelocities(10);
+    initSounds(10);
+    initNextHits(10);
 
     draw(10);
 }
