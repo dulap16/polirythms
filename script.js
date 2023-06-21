@@ -27,6 +27,11 @@ const colors = [
 
 
 const initialise = () => {
+const calculateNextHit = (lastHit, angVelocity) => {
+    const nextHit = lastHit + Math.PI / angVelocity;
+
+    return nextHit;
+}
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
