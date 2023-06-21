@@ -2,13 +2,6 @@ const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
 const colors = [
-    "#D0E7F5",
-    "#D9E7F4",
-    "#D6E3F4",
-    "#BCDFF5",
-    "#B7D9F4",
-    "#C3D4F0",
-    "#9DC1F3",
     "#9AA9F4",
     "#8D83EF",
     "#AE69F0",
@@ -25,13 +18,14 @@ const colors = [
     "#FEDCD1"
 ];
 
+let nextHits = [];
 
-const initialise = () => {
 const calculateNextHit = (lastHit, angVelocity) => {
     const nextHit = lastHit + Math.PI / angVelocity;
 
     return nextHit;
 }
+
 
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
@@ -39,6 +33,8 @@ const initNextHits = (nrOfArcs) => {
     }
 }
 
+
+const initCanvas = () => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -138,7 +134,7 @@ const draw = () => {
 
     for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i + 7])
+        drawArc(center, currRadius, colors[i])
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
@@ -152,7 +148,7 @@ const draw = () => {
 }
 
 function main() {
-    initialise();
+    initCanvas();
     calculateAngVelocities(10);
 
     draw(10);
