@@ -1,6 +1,31 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
 
+const colors = [
+    "#D0E7F5",
+    "#D9E7F4",
+    "#D6E3F4",
+    "#BCDFF5",
+    "#B7D9F4",
+    "#C3D4F0",
+    "#9DC1F3",
+    "#9AA9F4",
+    "#8D83EF",
+    "#AE69F0",
+    "#D46FF1",
+    "#DB5AE7",
+    "#D911DA",
+    "#D601CB",
+    "#E713BF",
+    "#F24CAE",
+    "#FB79AB",
+    "#FFB6C1",
+    "#FED2CF",
+    "#FDDFD5",
+    "#FEDCD1"
+];
+
+
 const initialise = () => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
