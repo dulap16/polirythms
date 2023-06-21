@@ -30,13 +30,12 @@ const initialise = () => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    pen.strokeStyle = "#D0D0D0";
-    pen.fillStyle = "#D0D0D0";
     pen.lineWidth = 4;
 }
 
 const drawBaseLine = (startPoint, endPoint) => {
     pen.lineWidth = 4;
+    pen.strokeStyle = colors[5];
 
     pen.beginPath();
     pen.moveTo(startPoint.x, startPoint.y);
@@ -45,15 +44,20 @@ const drawBaseLine = (startPoint, endPoint) => {
 }
 
 const drawCircle = (pos, radius) => {
+    pen.strokeStyle = "#D0D0D0";
+    pen.fillStyle = "#D0D0D0";
+
     pen.beginPath();
     pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
     pen.fill();
 }
 
 
-const drawArc = (center, radius) => {
+const drawArc = (center, radius, color) => {
+    pen.strokeStyle = color;
+
     pen.beginPath();
-    pen.arc(center.x, center.y, radius, Math.PI, 2 * Math.PI);
+    pen.arc(center.x, center.y - 7, radius, Math.PI * 1, 2 * Math.PI);
     pen.stroke();
 }
 
@@ -68,8 +72,6 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
     drawCircle(circlePos, circleRadius);
 }
-
-
 
 
 let angularVelocities = [];
@@ -124,7 +126,7 @@ const draw = () => {
 
     for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius)
+        drawArc(center, currRadius, colors[i + 7])
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
