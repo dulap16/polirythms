@@ -22,7 +22,7 @@ let nextHits = [];
 let sounds = [];
 
 const calculateNextHit = (lastHit, angVelocity) => {
-    const nextHit = lastHit + Math.PI / angVelocity;
+    const nextHit = lastHit + (Math.PI / angVelocity);
 
     return nextHit;
 }
@@ -30,7 +30,7 @@ const calculateNextHit = (lastHit, angVelocity) => {
 
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
-        nextHits[i] = calculateNextHit(0, angVelocity[i]);
+        nextHits[i] = calculateNextHit(0, angularVelocities[i]);
     }
 }
 
@@ -39,7 +39,7 @@ const initSounds = (nrOfArcs) => {
 
     for (i = 0; i < nrOfArcs; i++) {
         sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
-        sounds[i].volume = 0.02;
+        sounds[i].volume = 0.1;
     }
 }
 
@@ -94,7 +94,7 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 let angularVelocities = [];
 const initAngVelocities = (nrOfArcs) => {
-    let totalTimeOfSimulation = 300;
+    let totalTimeOfSimulation = 900;
     let totalDistTravelled = 100 * Math.PI;
 
     for (i = 0; i < nrOfArcs; i++) {
@@ -150,8 +150,8 @@ const draw = () => {
 
         drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
 
-        if (currentTime >= nextHits[i]) {
-            nextHits[i] = calculateNextHit(nextHits[i], angVelocity[i]);
+        if (timeElapsed >= nextHits[i]) {
+            nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
             sounds[i].play();
         }
     }
@@ -163,7 +163,7 @@ function main() {
     initCanvas();
     initAngVelocities(10);
     initSounds(10);
-    initNextHits();
+    initNextHits(10);
 
     draw(10);
 }
