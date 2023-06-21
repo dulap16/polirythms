@@ -19,6 +19,7 @@ const colors = [
 ];
 
 let nextHits = [];
+let sounds = [];
 
 const calculateNextHit = (lastHit, angVelocity) => {
     const nextHit = lastHit + Math.PI / angVelocity;
@@ -30,6 +31,15 @@ const calculateNextHit = (lastHit, angVelocity) => {
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
         nextHits[i] = calculateNextHit(0, angVelocity[i]);
+    }
+}
+
+const initSounds = (nrOfArcs) => {
+    nrOfArcs = Math.min(nrOfArcs, 10);
+
+    for (i = 0; i < nrOfArcs; i++) {
+        sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
+        sounds[i].volume = 0.02;
     }
 }
 
