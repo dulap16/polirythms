@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas");
 const pen = canvas.getContext("2d");
+const nrOfArcs = 15;
+
 
 const colors = [
     "#9AA9F4",
@@ -35,7 +37,7 @@ const initNextHits = (nrOfArcs) => {
 }
 
 const initSounds = (nrOfArcs) => {
-    nrOfArcs = Math.min(nrOfArcs, 10);
+    nrOfArcs = Math.min(nrOfArcs, 15);
 
     for (i = 0; i < nrOfArcs; i++) {
         sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
@@ -106,7 +108,7 @@ const initAngVelocities = (nrOfArcs) => {
 
 const startTime = Date.now();
 
-let nrOfArcs = 10;
+
 let currRadius = 0;
 let time = 900;
 const draw = () => {
@@ -161,11 +163,11 @@ const draw = () => {
 
 function main() {
     initCanvas();
-    initAngVelocities(10);
-    initSounds(10);
-    initNextHits(10);
+    initAngVelocities(nrOfArcs);
+    initSounds(nrOfArcs);
+    initNextHits(nrOfArcs);
 
-    draw(10);
+    draw(nrOfArcs);
 }
 
 
