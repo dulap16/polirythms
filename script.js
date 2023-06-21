@@ -32,6 +32,13 @@ const calculateNextHit = (lastHit, angVelocity) => {
 
     return nextHit;
 }
+
+const initNextHits = (nrOfArcs) => {
+    for (i = 0; i < nrOfArcs; i++) {
+        nextHits[i] = calculateNextHit(0, angVelocity[i]);
+    }
+}
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
