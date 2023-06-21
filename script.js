@@ -150,6 +150,11 @@ const draw = () => {
             angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
         drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
+
+        if (currentTime >= nextHits[i]) {
+            nextHits[i] = calculateNextHit(nextHits[i], angVelocity[i]);
+            sounds[i].play();
+        }
     }
 
     requestAnimationFrame(draw);
