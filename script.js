@@ -20,8 +20,17 @@ const colors = [
     "#FEDCD1"
 ];
 
+let soundOn = false;
+document.onvisibilitychange = () => soundOn = false;
+
 let nextHits = [];
 let sounds = [];
+
+const toggleSound = () => {
+    soundOn = !soundOn;
+}
+document.onclick = () => toggleSound();
+
 
 const calculateNextHit = (lastHit, angVelocity) => {
     const nextHit = lastHit + (Math.PI / angVelocity);
@@ -43,6 +52,11 @@ const initSounds = (nrOfArcs) => {
         sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
         sounds[i].volume = 0.1;
     }
+}
+
+const stopSound = (sound) => {
+    sound.pause();
+    sound.currentTime = 0;
 }
 
 
@@ -143,7 +157,7 @@ const draw = () => {
 
     for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i])
+        drawArc(center, currRadius, colors[i]);
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
@@ -154,7 +168,11 @@ const draw = () => {
 
         if (timeElapsed >= nextHits[i]) {
             nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
-            sounds[i].play();
+
+            if (soundOn) {
+                sounds[i].play();
+                setTimeout(stopSound, 2000, sounds[i]);
+            }
         }
     }
 
