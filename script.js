@@ -29,7 +29,7 @@ let sounds = [];
 const toggleSound = () => {
     soundOn = !soundOn;
 }
-document.onclick = toggleSound();
+document.onclick = () => toggleSound();
 
 
 const calculateNextHit = (lastHit, angVelocity) => {
