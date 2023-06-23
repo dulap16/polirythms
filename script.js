@@ -82,7 +82,7 @@ const drawCircle = (pos, radius) => {
     pen.fillStyle = "white";
 
     pen.beginPath();
-    pen.arc(pos.x, pos.y, radius, 0, 2 * Math.PI);
+    pen.arc(pos.x, pos.y - 7, radius, 0, 2 * Math.PI);
     pen.fill();
 }
 
