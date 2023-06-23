@@ -39,8 +39,11 @@ const calculateNextHit = (lastHit, angVelocity) => {
     return nextHit;
 }
 
+
+let currentVolume = 0;
 const initVolumeSlider = () => {
-    slider.value = "0";
+    slider.value = 30;
+    currentVolume = slider.value;
 }
 
 const initNextHits = (nrOfArcs) => {
