@@ -147,6 +147,8 @@ const startTime = Date.now();
 
 let currRadius = 0;
 const draw = () => {
+    checkIfVolumeChanged();
+
     let currRadius = 0;
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
