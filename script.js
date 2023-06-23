@@ -54,6 +54,11 @@ const initSounds = (nrOfArcs) => {
     }
 }
 
+const stopSound = (sound) => {
+    sound.stop();
+    sound.currentTime = 0;
+}
+
 
 const initCanvas = () => {
     canvas.width = canvas.clientWidth;
@@ -164,8 +169,10 @@ const draw = () => {
         if (timeElapsed >= nextHits[i]) {
             nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
 
-            if (soundOn)
+            if (soundOn) {
                 sounds[i].play();
+                setTimeout(stopSound, 2000, sounds[i]);
+            }
         }
     }
 
