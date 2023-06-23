@@ -26,6 +26,9 @@ document.onvisibilitychange = () => soundOn = false;
 let nextHits = [];
 let sounds = [];
 
+const toggleSound = () => {
+    soundOn = !soundOn;
+}
 const calculateNextHit = (lastHit, angVelocity) => {
     const nextHit = lastHit + (Math.PI / angVelocity);
 
