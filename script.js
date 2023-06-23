@@ -37,7 +37,14 @@ function toggleSoundClicked() {
         soundToggle.style.backgroundColor = "green";
     }
 }
-document.onclick = () => toggleSound();
+
+document.body.addEventListener('click', function(event) {
+    if (soundToggle.contains(event.target)) {
+        toggleSoundClicked();
+
+        console.log("clicked");
+    }
+});
 
 
 const calculateNextHit = (lastHit, angVelocity) => {
