@@ -53,6 +53,14 @@ const changeVolume = (newValue) => {
 
     currentVolume = slider.value;
 }
+
+const checkIfVolumeChanged = () => {
+    if (currentVolume != slider.value) {
+        changeVolume(slider.value);
+    }
+}
+
+
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
         nextHits[i] = calculateNextHit(0, angularVelocities[i]);
