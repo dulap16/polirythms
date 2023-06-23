@@ -55,7 +55,7 @@ const initSounds = (nrOfArcs) => {
 }
 
 const stopSound = (sound) => {
-    sound.stop();
+    sound.pause();
     sound.currentTime = 0;
 }
 
@@ -157,7 +157,7 @@ const draw = () => {
 
     for (i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i])
+        drawArc(center, currRadius, colors[i]);
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
