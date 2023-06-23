@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const slider = document.getElementById("slider");
 const pen = canvas.getContext("2d");
 const nrOfArcs = 15;
 
@@ -36,6 +37,27 @@ const calculateNextHit = (lastHit, angVelocity) => {
     const nextHit = lastHit + (Math.PI / angVelocity);
 
     return nextHit;
+}
+
+
+let currentVolume = 0;
+const initVolumeSlider = () => {
+    slider.value = 30;
+    currentVolume = slider.value;
+}
+
+const changeVolume = (newValue) => {
+    sounds.forEach(sound => {
+        sound.volume = newValue / 200;
+    });
+
+    currentVolume = slider.value;
+}
+
+const checkIfVolumeChanged = () => {
+    if (currentVolume != slider.value) {
+        changeVolume(slider.value);
+    }
 }
 
 
@@ -125,6 +147,8 @@ const startTime = Date.now();
 
 let currRadius = 0;
 const draw = () => {
+    checkIfVolumeChanged();
+
     let currRadius = 0;
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
@@ -179,6 +203,7 @@ const draw = () => {
 }
 
 function main() {
+    initVolumeSlider();
     initCanvas();
     initAngVelocities(nrOfArcs);
     initSounds(nrOfArcs);

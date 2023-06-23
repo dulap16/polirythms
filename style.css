@@ -8,3 +8,9 @@ body {
     height: 99.4vh;
     background-color: rgb(31, 31, 31);
 }
+
+#volume-slider {
+    width: 200px;
+    position: absolute;
+    background-color: rgb(31, 31, 31);
+}
