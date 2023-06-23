@@ -163,7 +163,9 @@ const draw = () => {
 
         if (timeElapsed >= nextHits[i]) {
             nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
-            sounds[i].play();
+
+            if (soundOn)
+                sounds[i].play();
         }
     }
 
