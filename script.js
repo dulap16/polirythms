@@ -23,7 +23,10 @@ const colors = [
 ];
 
 let soundOn = false;
-document.onvisibilitychange = () => soundOn = false;
+document.onvisibilitychange = () => {
+    if (soundOn)
+        toggleSoundClicked();
+};
 
 let nextHits = [];
 let sounds = [];
@@ -41,8 +44,6 @@ function toggleSoundClicked() {
 document.body.addEventListener('click', function(event) {
     if (soundToggle.contains(event.target)) {
         toggleSoundClicked();
-
-        console.log("clicked");
     }
 });
 
