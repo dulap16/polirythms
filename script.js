@@ -1,5 +1,6 @@
 const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
+const soundToggle = document.getElementById("sound-toggle");
 const pen = canvas.getContext("2d");
 const nrOfArcs = 15;
 
@@ -22,15 +23,29 @@ const colors = [
 ];
 
 let soundOn = false;
-document.onvisibilitychange = () => soundOn = false;
+document.onvisibilitychange = () => {
+    if (soundOn)
+        toggleSoundClicked();
+};
 
 let nextHits = [];
 let sounds = [];
 
-const toggleSound = () => {
-    soundOn = !soundOn;
+function toggleSoundClicked() {
+    if (soundOn) {
+        soundOn = false;
+        soundToggle.style.backgroundColor = "red";
+    } else {
+        soundOn = true;
+        soundToggle.style.backgroundColor = "green";
+    }
 }
-document.onclick = () => toggleSound();
+
+document.body.addEventListener('click', function(event) {
+    if (soundToggle.contains(event.target)) {
+        toggleSoundClicked();
+    }
+});
 
 
 const calculateNextHit = (lastHit, angVelocity) => {
