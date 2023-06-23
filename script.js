@@ -20,6 +20,7 @@ const colors = [
     "#FEDCD1"
 ];
 
+let soundOn = false;
 let nextHits = [];
 let sounds = [];
 
