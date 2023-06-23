@@ -183,6 +183,7 @@ const draw = () => {
 }
 
 function main() {
+    initVolumeSlider();
     initCanvas();
     initAngVelocities(nrOfArcs);
     initSounds(nrOfArcs);
