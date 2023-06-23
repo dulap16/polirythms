@@ -46,6 +46,13 @@ const initVolumeSlider = () => {
     currentVolume = slider.value;
 }
 
+const changeVolume = (newValue) => {
+    sounds.forEach(sound => {
+        sound.volume = newValue / 200;
+    });
+
+    currentVolume = slider.value;
+}
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
         nextHits[i] = calculateNextHit(0, angularVelocities[i]);
