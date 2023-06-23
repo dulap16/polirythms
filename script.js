@@ -21,6 +21,8 @@ const colors = [
 ];
 
 let soundOn = false;
+document.onvisibilitychange = () => soundOn = false;
+
 let nextHits = [];
 let sounds = [];
 
