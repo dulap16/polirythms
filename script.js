@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const slider = document.getElementById("slider");
 const pen = canvas.getContext("2d");
 const nrOfArcs = 15;
 
@@ -38,6 +39,9 @@ const calculateNextHit = (lastHit, angVelocity) => {
     return nextHit;
 }
 
+const initVolumeSlider = () => {
+    slider.value = "0";
+}
 
 const initNextHits = (nrOfArcs) => {
     for (i = 0; i < nrOfArcs; i++) {
