@@ -1,6 +1,6 @@
 {
-    "nrOfArcs" : 15,
-    "timeOfSimulation" : 450,
+    "nrOfArcs" : "15",
+    "timeOfSimulation" : "450",
     "colors" : [
         "#9AA9F4",
         "#8D83EF",
