@@ -74,13 +74,13 @@ const checkIfVolumeChanged = () => {
 }
 
 
-const initNextHits = (nrOfArcs) => {
+const initNextHits = () => {
     for (let i = 0; i < nrOfArcs; i++) {
         nextHits[i] = calculateNextHit(0, angularVelocities[i]);
     }
 }
 
-const initSounds = (nrOfArcs) => {
+const initSounds = () => {
     nrOfArcs = Math.min(nrOfArcs, 15);
 
     for (let i = 0; i < nrOfArcs; i++) {
@@ -144,8 +144,8 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 
 let angularVelocities = [];
-const initAngVelocities = (nrOfArcs) => {
     let totalTimeOfSimulation = 450;
+const initAngVelocities = () => {
     let totalDistTravelled = 100 * Math.PI;
 
     for (let i = 0; i < nrOfArcs; i++) {
