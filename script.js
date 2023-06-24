@@ -14,6 +14,16 @@ const initSettings = () => {
         });
 }
 
+const initAll = () => {
+    initVolumeSlider();
+    initCanvas();
+    initAngVelocities();
+    initSounds();
+    initNextHits();
+
+    draw();
+}
+
 
 const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
@@ -218,13 +228,7 @@ const draw = () => {
 function main() {
     initSettings();
 
-    initVolumeSlider();
-    initCanvas();
-    initAngVelocities(nrOfArcs);
-    initSounds(nrOfArcs);
-    initNextHits(nrOfArcs);
-
-    draw(nrOfArcs);
+    setTimeout(initAll, 50);
 }
 
 
