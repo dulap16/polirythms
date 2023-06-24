@@ -1,3 +1,20 @@
+let colors = [];
+let nrOfArcs = 0;
+let timeOfSimulation = 0;
+
+const initSettings = () => {
+    fetch('./settings.json')
+        .then((response) => response.json())
+        .then((json) => {
+            nrOfArcs = json.nrOfArcs;
+            timeOfSimulation = json.timeOfSimulation;
+            colors = json.colors;
+
+            console.log(nrOfArcs);
+        });
+}
+
+
 const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
 const soundToggle = document.getElementById("sound-toggle");
