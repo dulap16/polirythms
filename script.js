@@ -164,6 +164,10 @@ const initAngVelocities = () => {
     }
 }
 
+const lightUpUnderCircle = (angle, currRadius, circleRadius) => {
+
+}
+
 
 const startTime = Date.now();
 
