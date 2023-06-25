@@ -35,7 +35,26 @@ class Arc {
         this.angVelocity = angVelocity;
         this.color = color;
         this.sound = sound;
-        this.lastHit = 0;
+
+        this.nextHit = 0;
+        this.calculateNextHit();
+    }
+
+    get getAngVeclocity() {
+        return this.angVelocity;
+    }
+
+    get getNextHit() {
+        return this.nextHit;
+    }
+
+    get getColor() {
+        return this.color;
+    }
+
+    get getSound() {
+        return this.sound;
+    }
     }
 }
 
