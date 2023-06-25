@@ -19,8 +19,6 @@ const initSettings = () => {
             colors = json.colors;
             distTravelledByFirstCircle = parseInt(json.PITravelledByFirstCircle) * Math.PI;
             decreaseRate = parseInt(json.PIDecreaseRate) * Math.PI;
-
-            console.log(nrOfArcs);
         });
 }
 
@@ -92,7 +90,8 @@ const calculateVelocityOfArc = (index) => {
     return velocity;
 }
 
-let startPoint, endPoint, center;
+let baselineLength, spaceBetweenArcs, circleRadius;
+let startPoint, endPoint, baselineCenter;
 const initPoints = () => {
     startPoint = {
         x: canvas.width * 0.1,
@@ -104,10 +103,14 @@ const initPoints = () => {
         y: canvas.height * 0.9
     };  
 
-    center = {
+    baselineCenter = {
         x: (startPoint.x + endPoint.x) / 2,
         y: startPoint.y
     };
+
+    baselineLength = endPoint.x - startPoint.x;
+    spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
+    circleRadius = spaceBetweenArcs / 3.8;
 }
 
 let soundOn = false;
