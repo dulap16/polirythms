@@ -33,10 +33,11 @@ const initAll = () => {
 }
 
 class Arc {
-    constructor(angVelocity, color, sound) {
+    constructor(angVelocity, color, sound, centerRadius) {
         this.angVelocity = angVelocity;
         this.color = color;
         this.sound = sound;
+        this.centerRadius = centerRadius;
 
         this.nextHit = 0;
         this.calculateNextHit();
@@ -64,6 +65,14 @@ class Arc {
 
     changeVolumeOfArc = (newVolume) => {
         this.sound.volume = newVolume;
+    }
+
+    drawArc = () => {
+        pen.strokeStyle = this.color;
+
+        pen.beginPath();
+        pen.arc(baselineCenter.x, baselineCenter.y - 7, radius, Math.PI * 1, 2 * Math.PI);
+        pen.stroke();
     }
 };
 
