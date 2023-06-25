@@ -69,6 +69,15 @@ class Arc {
     }
 }
 
+arcs = [];
+
+const initArcs = () => {
+    for(let i = 0; i < nrOfArcs; i++) {
+        let currVelocity = calculateVelocityOfArc(i);
+        arcs.append(new Arc(currVelocity, colors[i], sounds[i]));
+    }
+}
+
 const calculateVelocityOfArc = (index) => {
     let distTravelledByThisCircle = distTravelledByFirstCircle - index * decreaseRate;
     let velocity = distTravelledByThisCircle / timeOfSimulation;
