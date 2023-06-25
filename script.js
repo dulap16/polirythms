@@ -21,9 +21,7 @@ const initSettings = () => {
 const initAll = () => {
     initVolumeSlider();
     initCanvas();
-    initAngVelocities();
-    initSounds();
-    initNextHits();
+    initArcs();
 
     draw();
 }
