@@ -15,5 +15,7 @@
         "#FFB6C1",
         "#FED2CF",
         "#FDDFD5",
-        "#FEDCD1"]
+        "#FEDCD1"],
+    "PITravelledByFirstCircle" : "100",
+    "PIDecreaseRate" : "2"
 }
