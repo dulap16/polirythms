@@ -234,6 +234,15 @@ const playSoundIfCircleHitBaseline = (arc, elapsedTime) => {
     }
 };
 
+const moveCircleOnArc = (arc, elapsedTime) => {
+    let angOfCurrCircle = arc.getAngVeclocity * elapsedTime;
+    angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
+    if (angOfCurrCircle < Math.PI)
+        angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
+
+    drawCircleAtAngle(angOfCurrCircle, arc.getCenterRadius);
+};
+
 const startTime = Date.now();
 
 let currRadius = 0;
@@ -250,12 +259,7 @@ const draw = () => {
     for (let i = 0; i < nrOfArcs; i++) {
         arcs[i].drawArc();
 
-        let angOfCurrCircle = arcs[i].getAngVeclocity * timeElapsed;
-        angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
-        if (angOfCurrCircle < Math.PI)
-            angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
-
-        drawCircleAtAngle(angOfCurrCircle, arcs[i].getCenterRadius, circleRadius, baselineCenter);
+        moveCircleOnArc(arcs[i], timeElapsed);
 
         playSoundIfCircleHitBaseline(arcs[i], timeElapsed);
     }
