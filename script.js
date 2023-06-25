@@ -188,7 +188,7 @@ const initCanvas = () => {
     initPoints();
 }
 
-const drawBaseLine = (startPoint, endPoint) => {
+const drawBaseLine = () => {
     pen.lineWidth = 4;
     pen.strokeStyle = colors[5];
 
@@ -223,7 +223,6 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 
 const startTime = Date.now();
 
-
 let currRadius = 0;
 const draw = () => {
     checkIfVolumeChanged();
@@ -234,22 +233,18 @@ const draw = () => {
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawBaseLine(startPoint, endPoint);
-
-    let baselineLength = endPoint.x - startPoint.x;
-    let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
-    let circleRadius = spaceBetweenArcs / 3.8;
+    drawBaseLine();
 
     for (let i = 0; i < nrOfArcs; i++) {
         currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i]);
+        drawArc(baselineCenter, currRadius, colors[i]);
 
         let angOfCurrCircle = angularVelocities[i] * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
         if (angOfCurrCircle < Math.PI)
             angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
-        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
+        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, baselineCenter);
 
         if (timeElapsed >= nextHits[i]) {
             nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
@@ -264,10 +259,12 @@ const draw = () => {
     requestAnimationFrame(draw);
 }
 
+
+
 function main() {
     initSettings();
 
-    setTimeout(initAll, 200);
+    setTimeout(initAll, 300);
 }
 
 
