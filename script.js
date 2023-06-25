@@ -65,7 +65,7 @@ class Arc {
         this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
     };
 
-    changeVolumeOfArc = (newVolume) => {
+    changeVolume = (newVolume) => {
         this.sound.volume = newVolume;
     };
 
@@ -151,8 +151,8 @@ const initVolumeSlider = () => {
 
 const changeSystemVolume = (newValue) => {
     arcs.forEach(arc => {
-        arc.changeVolumeOfArc(newValue)
-    })
+        arc.changeVolume(newValue / 100)
+    });
 
     currentVolume = slider.value;
 }
