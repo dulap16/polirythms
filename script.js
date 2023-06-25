@@ -81,7 +81,7 @@ let arcs = [];
 const initArcs = () => {
     for(let i = 0; i < nrOfArcs; i++) {
         let currVelocity = calculateVelocityOfArc(i);
-        arcs.append(new Arc(currVelocity, colors[i], getSoundByIndex(i)));
+        arcs.push(new Arc(currVelocity, colors[i], getSoundByIndex(i), spaceBetweenArcs * (i + 1)));
     }
 }
 
