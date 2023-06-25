@@ -73,9 +73,9 @@ class Arc {
         pen.strokeStyle = this.color;
 
         pen.beginPath();
-        pen.arc(baselineCenter.x, baselineCenter.y - 7, radius, Math.PI * 1, 2 * Math.PI);
+        pen.arc(baselineCenter.x, baselineCenter.y - 7, this.centerRadius, Math.PI * 1, 2 * Math.PI);
         pen.stroke();
-    }
+    };
 };
 
 let arcs = [];
