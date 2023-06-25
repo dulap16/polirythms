@@ -85,6 +85,24 @@ const calculateVelocityOfArc = (index) => {
     return velocity;
 }
 
+let startPoint, endPoint, center;
+const initPoints = () => {
+    startPoint = {
+        x: canvas.width * 0.1,
+        y: canvas.height * 0.9
+    };
+
+    endPoint = {
+        x: canvas.width * 0.9,
+        y: canvas.height * 0.9
+    };  
+
+    center = {
+        x: (startPoint.x + endPoint.x) / 2,
+        y: startPoint.y
+    };
+}
+
 let soundOn = false;
 document.onvisibilitychange = () => {
     if (soundOn)
