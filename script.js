@@ -1,34 +1,121 @@
+const canvas = document.getElementById("canvas");
+const slider = document.getElementById("slider");
+const soundToggle = document.getElementById("sound-toggle");
+const pen = canvas.getContext("2d");
+
+
 let colors = [];
 let nrOfArcs = 0;
 let timeOfSimulation = 0;
+let distTravelledByFirstCircle = 0;
+let decreaseRate = 0;
 
 const initSettings = () => {
     fetch('./settings.json')
         .then((response) => response.json())
         .then((json) => {
-            nrOfArcs = json.nrOfArcs;
-            timeOfSimulation = json.timeOfSimulation;
+            nrOfArcs = parseInt(json.nrOfArcs);
+            timeOfSimulation = parseInt(json.timeOfSimulation);
             colors = json.colors;
-
-            console.log(nrOfArcs);
+            distTravelledByFirstCircle = parseInt(json.PITravelledByFirstCircle) * Math.PI;
+            decreaseRate = parseInt(json.PIDecreaseRate) * Math.PI;
         });
 }
 
 const initAll = () => {
     initVolumeSlider();
     initCanvas();
-    initAngVelocities();
-    initSounds();
-    initNextHits();
+    initArcs();
 
     draw();
 }
 
+class Arc {
+    constructor(angVelocity, color, sound, centerRadius) {
+        this.angVelocity = angVelocity;
+        this.color = color;
+        this.sound = sound;
+        this.centerRadius = centerRadius;
 
-const canvas = document.getElementById("canvas");
-const slider = document.getElementById("slider");
-const soundToggle = document.getElementById("sound-toggle");
-const pen = canvas.getContext("2d");
+        this.nextHit = 0;
+        this.calculateNextHit();
+    };
+
+    get getAngVeclocity() {
+        return this.angVelocity;
+    };
+
+    get getNextHit() {
+        return this.nextHit;
+    };
+
+    get getColor() {
+        return this.color;
+    };
+
+    get getSound() {
+        return this.sound;
+    };
+
+    get getCenterRadius() {
+        return this.centerRadius;
+    };
+
+    calculateNextHit = () => {
+        this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
+    };
+
+    changeVolume = (newVolume) => {
+        this.sound.volume = newVolume;
+    };
+
+    drawArc = () => {
+        pen.strokeStyle = this.color;
+
+        pen.beginPath();
+        pen.arc(baselineCenter.x, baselineCenter.y - 7, this.centerRadius, Math.PI * 1, 2 * Math.PI);
+        pen.stroke();
+    };
+};
+
+let arcs = [];
+
+const initArcs = () => {
+    for(let i = 0; i < nrOfArcs; i++) {
+        let currVelocity = calculateVelocityOfArc(i);
+        arcs.push(new Arc(currVelocity, colors[i], getSoundByIndex(i + 1), spaceBetweenArcs * (i + 1)));
+    }
+}
+
+const calculateVelocityOfArc = (index) => {
+    let distTravelledByThisCircle = distTravelledByFirstCircle - index * decreaseRate;
+    let velocity = distTravelledByThisCircle / timeOfSimulation;
+
+    return velocity;
+}
+
+let baselineLength, spaceBetweenArcs, circleRadius;
+let startPoint, endPoint, baselineCenter;
+const initPoints = () => {
+    startPoint = {
+        x: canvas.width * 0.1,
+        y: canvas.height * 0.9
+    };
+
+    endPoint = {
+        x: canvas.width * 0.9,
+        y: canvas.height * 0.9
+    };  
+
+    baselineCenter = {
+        x: (startPoint.x + endPoint.x) / 2,
+        y: startPoint.y
+    };
+
+    baselineLength = endPoint.x - startPoint.x;
+    spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
+    circleRadius = spaceBetweenArcs / 3.8;
+}
 
 let soundOn = false;
 document.onvisibilitychange = () => {
@@ -56,22 +143,15 @@ document.body.addEventListener('click', function(event) {
 });
 
 
-const calculateNextHit = (lastHit, angVelocity) => {
-    const nextHit = lastHit + (Math.PI / angVelocity);
-
-    return nextHit;
-}
-
-
 let currentVolume = 0;
 const initVolumeSlider = () => {
     slider.value = 30;
     currentVolume = slider.value;
 }
 
-const changeVolume = (newValue) => {
-    sounds.forEach(sound => {
-        sound.volume = newValue / 200;
+const changeSystemVolume = (newValue) => {
+    arcs.forEach(arc => {
+        arc.changeVolume(newValue / 100)
     });
 
     currentVolume = slider.value;
@@ -79,7 +159,7 @@ const changeVolume = (newValue) => {
 
 const checkIfVolumeChanged = () => {
     if (currentVolume != slider.value) {
-        changeVolume(slider.value);
+        changeSystemVolume(slider.value);
     }
 }
 
@@ -90,13 +170,11 @@ const initNextHits = () => {
     }
 }
 
-const initSounds = () => {
-    nrOfArcs = Math.min(nrOfArcs, 15);
+const getSoundByIndex = (index) => {
+    let currSound = new Audio('sounds/key' + index + '.mp3');
+    currSound.volume = 0.1;
 
-    for (let i = 0; i < nrOfArcs; i++) {
-        sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
-        sounds[i].volume = 0.1;
-    }
+    return currSound;
 }
 
 const stopSound = (sound) => {
@@ -110,9 +188,11 @@ const initCanvas = () => {
     canvas.height = canvas.clientHeight;
 
     pen.lineWidth = 4;
+
+    initPoints();
 }
 
-const drawBaseLine = (startPoint, endPoint) => {
+const drawBaseLine = () => {
     pen.lineWidth = 4;
     pen.strokeStyle = colors[5];
 
@@ -131,15 +211,6 @@ const drawCircle = (pos, radius) => {
     pen.fill();
 }
 
-
-const drawArc = (center, radius, color) => {
-    pen.strokeStyle = color;
-
-    pen.beginPath();
-    pen.arc(center.x, center.y - 7, radius, Math.PI * 1, 2 * Math.PI);
-    pen.stroke();
-}
-
 const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
     const x = Math.cos(angle) * distFromCenter;
     const y = Math.sin(angle) * distFromCenter;
@@ -153,71 +224,36 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
 }
 
 
-let angularVelocities = [];
-const initAngVelocities = () => {
-    let totalTimeOfSimulation = timeOfSimulation;
-    let totalDistTravelled = 100 * Math.PI;
-
-    for (let i = 0; i < nrOfArcs; i++) {
-        angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
-        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
-    }
-}
-
 
 const startTime = Date.now();
-
 
 let currRadius = 0;
 const draw = () => {
     checkIfVolumeChanged();
-
-    let currRadius = 0;
+    
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
-
-    const startPoint = {
-        x: canvas.width * 0.1,
-        y: canvas.height * 0.9
-    }
-
-    const endPoint = {
-        x: canvas.width * 0.9,
-        y: canvas.height * 0.9
-    }
-
-    const center = {
-        x: (startPoint.x + endPoint.x) / 2,
-        y: startPoint.y
-    };
-
-    drawBaseLine(startPoint, endPoint);
-
-
-    let baselineLength = endPoint.x - startPoint.x;
-    let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
-    let circleRadius = spaceBetweenArcs / 3.8;
+    drawBaseLine();
 
     for (let i = 0; i < nrOfArcs; i++) {
-        currRadius = currRadius + spaceBetweenArcs;
-        drawArc(center, currRadius, colors[i]);
+        arcs[i].drawArc();
 
-        let angOfCurrCircle = angularVelocities[i] * timeElapsed;
+        let angOfCurrCircle = arcs[i].getAngVeclocity * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
         if (angOfCurrCircle < Math.PI)
             angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
-        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, center);
+        drawCircleAtAngle(angOfCurrCircle, arcs[i].getCenterRadius, circleRadius, baselineCenter);
 
-        if (timeElapsed >= nextHits[i]) {
-            nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
+        if (timeElapsed >= arcs[i].getNextHit) {
+            arcs[i].calculateNextHit();
 
             if (soundOn) {
-                sounds[i].play();
-                setTimeout(stopSound, 2000, sounds[i]);
+                arcs[i].getSound.play();
+                setTimeout(stopSound, 2000, arcs[i].getSound);
             }
         }
     }
@@ -225,10 +261,12 @@ const draw = () => {
     requestAnimationFrame(draw);
 }
 
+
+
 function main() {
     initSettings();
 
-    setTimeout(initAll, 50);
+    setTimeout(initAll, 300);
 }
 
 
