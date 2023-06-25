@@ -67,14 +67,14 @@ class Arc {
     changeVolumeOfArc = (newVolume) => {
         this.sound.volume = newVolume;
     }
-}
+};
 
-arcs = [];
+let arcs = [];
 
 const initArcs = () => {
     for(let i = 0; i < nrOfArcs; i++) {
         let currVelocity = calculateVelocityOfArc(i);
-        arcs.append(new Arc(currVelocity, colors[i], sounds[i]));
+        arcs.append(new Arc(currVelocity, colors[i], getSoundByIndex(i)));
     }
 }
 
@@ -135,17 +135,17 @@ const initVolumeSlider = () => {
     currentVolume = slider.value;
 }
 
-const changeVolume = (newValue) => {
-    sounds.forEach(sound => {
-        sound.volume = newValue / 200;
-    });
+const changeSystemVolume = (newValue) => {
+    arcs.forEach(arc => {
+        arc.changeVolumeOfArc(newValue)
+    })
 
     currentVolume = slider.value;
 }
 
 const checkIfVolumeChanged = () => {
     if (currentVolume != slider.value) {
-        changeVolume(slider.value);
+        changeSystemVolume(slider.value);
     }
 }
 
