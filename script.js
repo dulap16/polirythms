@@ -59,6 +59,10 @@ class Arc {
     calculateNextHit = () => {
         this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
     }
+
+    changeVolumeOfArc = (newVolume) => {
+        this.sound.volume = newVolume;
+    }
 }
 
 let soundOn = false;
