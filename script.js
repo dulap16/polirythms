@@ -156,6 +156,8 @@ const initCanvas = () => {
     canvas.height = canvas.clientHeight;
 
     pen.lineWidth = 4;
+
+    initPoints();
 }
 
 const drawBaseLine = (startPoint, endPoint) => {
