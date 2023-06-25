@@ -39,31 +39,31 @@ class Arc {
 
         this.nextHit = 0;
         this.calculateNextHit();
-    }
+    };
 
     get getAngVeclocity() {
         return this.angVelocity;
-    }
+    };
 
     get getNextHit() {
         return this.nextHit;
-    }
+    };
 
     get getColor() {
         return this.color;
-    }
+    };
 
     get getSound() {
         return this.sound;
-    }
+    };
 
     calculateNextHit = () => {
         this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
-    }
+    };
 
     changeVolumeOfArc = (newVolume) => {
         this.sound.volume = newVolume;
-    }
+    };
 
     drawArc = () => {
         pen.strokeStyle = this.color;
