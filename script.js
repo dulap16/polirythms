@@ -8,11 +8,11 @@ const initSettings = () => {
     fetch('./settings.json')
         .then((response) => response.json())
         .then((json) => {
-            nrOfArcs = json.nrOfArcs;
-            timeOfSimulation = json.timeOfSimulation;
+            nrOfArcs = parseInt(json.nrOfArcs);
+            timeOfSimulation = parseInt(json.timeOfSimulation);
             colors = json.colors;
-            distTravelledByFirstCircle = json.PITravelledByFirstCircle * Math.PI;
-            decreaseRate = json.PIDecreaseRate * Math.PI;
+            distTravelledByFirstCircle = parseInt(json.PITravelledByFirstCircle) * Math.PI;
+            decreaseRate = parseInt(json.PIDecreaseRate) * Math.PI;
 
             console.log(nrOfArcs);
         });
