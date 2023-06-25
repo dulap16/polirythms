@@ -145,15 +145,6 @@ const getSoundByIndex = (index) => {
     return currSound;
 }
 
-const initSounds = () => {
-    nrOfArcs = Math.min(nrOfArcs, 15);
-
-    for (let i = 0; i < nrOfArcs; i++) {
-        sounds[i] = new Audio('sounds/key' + (i + 1) + '.mp3');
-        sounds[i].volume = 0.1;
-    }
-}
-
 const stopSound = (sound) => {
     sound.pause();
     sound.currentTime = 0;
