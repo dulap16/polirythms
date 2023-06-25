@@ -30,6 +30,15 @@ const slider = document.getElementById("slider");
 const soundToggle = document.getElementById("sound-toggle");
 const pen = canvas.getContext("2d");
 
+class Arc {
+    constructor(angVelocity, color, sound) {
+        this.angVelocity = angVelocity;
+        this.color = color;
+        this.sound = sound;
+        this.lastHit = 0;
+    }
+}
+
 let soundOn = false;
 document.onvisibilitychange = () => {
     if (soundOn)
@@ -228,7 +237,7 @@ const draw = () => {
 function main() {
     initSettings();
 
-    setTimeout(initAll, 50);
+    setTimeout(initAll, 200);
 }
 
 
