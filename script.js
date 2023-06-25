@@ -1,6 +1,8 @@
 let colors = [];
 let nrOfArcs = 0;
 let timeOfSimulation = 0;
+let distTravelledByFirstCircle = 0;
+let decreaseRate = 0;
 
 const initSettings = () => {
     fetch('./settings.json')
@@ -9,6 +11,8 @@ const initSettings = () => {
             nrOfArcs = json.nrOfArcs;
             timeOfSimulation = json.timeOfSimulation;
             colors = json.colors;
+            distTravelledByFirstCircle = json.PITravelledByFirstCircle * Math.PI;
+            decreaseRate = json.PIDecreaseRate * Math.PI;
 
             console.log(nrOfArcs);
         });
