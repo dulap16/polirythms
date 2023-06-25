@@ -134,7 +134,7 @@ function toggleSoundClicked() {
         soundOn = true;
         soundToggle.style.backgroundColor = "green";
     }
-}
+};
 
 document.body.addEventListener('click', function(event) {
     if (soundToggle.contains(event.target)) {
@@ -147,7 +147,7 @@ let currentVolume = 0;
 const initVolumeSlider = () => {
     slider.value = 30;
     currentVolume = slider.value;
-}
+};
 
 const changeSystemVolume = (newValue) => {
     arcs.forEach(arc => {
@@ -155,32 +155,32 @@ const changeSystemVolume = (newValue) => {
     });
 
     currentVolume = slider.value;
-}
+};
 
 const checkIfVolumeChanged = () => {
     if (currentVolume != slider.value) {
         changeSystemVolume(slider.value);
     }
-}
+};
 
 
 const initNextHits = () => {
     for (let i = 0; i < nrOfArcs; i++) {
         nextHits[i] = calculateNextHit(0, angularVelocities[i]);
     }
-}
+};
 
 const getSoundByIndex = (index) => {
     let currSound = new Audio('sounds/key' + index + '.mp3');
     currSound.volume = 0.1;
 
     return currSound;
-}
+};
 
 const stopSound = (sound) => {
     sound.pause();
     sound.currentTime = 0;
-}
+};
 
 
 const initCanvas = () => {
@@ -190,7 +190,7 @@ const initCanvas = () => {
     pen.lineWidth = 4;
 
     initPoints();
-}
+};
 
 const drawBaseLine = () => {
     pen.lineWidth = 4;
@@ -200,7 +200,7 @@ const drawBaseLine = () => {
     pen.moveTo(startPoint.x, startPoint.y);
     pen.lineTo(endPoint.x, endPoint.y);
     pen.stroke();
-}
+};
 
 const drawCircle = (pos, radius) => {
     pen.strokeStyle = "white";
@@ -209,19 +209,19 @@ const drawCircle = (pos, radius) => {
     pen.beginPath();
     pen.arc(pos.x, pos.y - 7, radius, 0, 2 * Math.PI);
     pen.fill();
-}
+};
 
-const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
+const drawCircleAtAngle = (angle, distFromCenter) => {
     const x = Math.cos(angle) * distFromCenter;
     const y = Math.sin(angle) * distFromCenter;
 
     const circlePos = {
-        x: x + center.x,
-        y: y + center.y
+        x: x + baselineCenter.x,
+        y: y + baselineCenter.y
     };
 
     drawCircle(circlePos, circleRadius);
-}
+};
 
 const playSoundIfCircleHitBaseline = (arc, elapsedTime) => {
     if (elapsedTime >= arc.getNextHit) {
