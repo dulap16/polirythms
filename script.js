@@ -138,6 +138,13 @@ const initNextHits = () => {
     }
 }
 
+const getSoundByIndex = (index) => {
+    let currSound = new Audio('sounds/key' + index + '.mp3');
+    currSound.volume = 0.1;
+
+    return currSound;
+}
+
 const initSounds = () => {
     nrOfArcs = Math.min(nrOfArcs, 15);
 
