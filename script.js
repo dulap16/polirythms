@@ -224,24 +224,7 @@ const draw = () => {
 
     pen.clearRect(0, 0, canvas.width, canvas.height);
 
-
-    const startPoint = {
-        x: canvas.width * 0.1,
-        y: canvas.height * 0.9
-    }
-
-    const endPoint = {
-        x: canvas.width * 0.9,
-        y: canvas.height * 0.9
-    }
-
-    const center = {
-        x: (startPoint.x + endPoint.x) / 2,
-        y: startPoint.y
-    };
-
     drawBaseLine(startPoint, endPoint);
-
 
     let baselineLength = endPoint.x - startPoint.x;
     let spaceBetweenArcs = (baselineLength / 2) / (nrOfArcs + 1);
