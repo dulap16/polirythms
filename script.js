@@ -230,8 +230,7 @@ const startTime = Date.now();
 let currRadius = 0;
 const draw = () => {
     checkIfVolumeChanged();
-
-    let currRadius = 0;
+    
     let currentTime = Date.now();
     const timeElapsed = (currentTime - startTime) / 1000;
 
@@ -240,22 +239,21 @@ const draw = () => {
     drawBaseLine();
 
     for (let i = 0; i < nrOfArcs; i++) {
-        currRadius = currRadius + spaceBetweenArcs;
-        drawArc(baselineCenter, currRadius, colors[i]);
+        arcs[i].drawArc();
 
-        let angOfCurrCircle = angularVelocities[i] * timeElapsed;
+        let angOfCurrCircle = arcs[i].getAngVeclocity * timeElapsed;
         angOfCurrCircle = angOfCurrCircle % (2 * Math.PI);
         if (angOfCurrCircle < Math.PI)
             angOfCurrCircle = 2 * Math.PI - angOfCurrCircle;
 
-        drawCircleAtAngle(angOfCurrCircle, currRadius, circleRadius, baselineCenter);
+        drawCircleAtAngle(angOfCurrCircle, arcs[i].getCenterRadius, circleRadius, baselineCenter);
 
-        if (timeElapsed >= nextHits[i]) {
-            nextHits[i] = calculateNextHit(nextHits[i], angularVelocities[i]);
+        if (timeElapsed >= arcs[i].getNextHit) {
+            arcs[i].calculateNextHit();
 
             if (soundOn) {
-                sounds[i].play();
-                setTimeout(stopSound, 2000, sounds[i]);
+                arcs[i].getSound.play();
+                setTimeout(stopSound, 2000, arcs[i].getSound);
             }
         }
     }
