@@ -69,6 +69,13 @@ class Arc {
     }
 }
 
+const calculateVelocityOfArc = (index) => {
+    let distTravelledByThisCircle = distTravelledByFirstCircle - index * decreaseRate;
+    let velocity = distTravelledByThisCircle / timeOfSimulation;
+
+    return velocity;
+}
+
 let soundOn = false;
 document.onvisibilitychange = () => {
     if (soundOn)
