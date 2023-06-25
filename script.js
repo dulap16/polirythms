@@ -223,7 +223,16 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
     drawCircle(circlePos, circleRadius);
 }
 
+const playSoundIfCircleHitBaseline = (arc, elapsedTime) => {
+    if (elapsedTime >= arc.getNextHit) {
+        arc.calculateNextHit();
 
+        if (soundOn) {
+            arc.getSound.play();
+            setTimeout(stopSound, 2000, arc.getSound);
+        }
+    }
+};
 
 const startTime = Date.now();
 
@@ -248,14 +257,7 @@ const draw = () => {
 
         drawCircleAtAngle(angOfCurrCircle, arcs[i].getCenterRadius, circleRadius, baselineCenter);
 
-        if (timeElapsed >= arcs[i].getNextHit) {
-            arcs[i].calculateNextHit();
-
-            if (soundOn) {
-                arcs[i].getSound.play();
-                setTimeout(stopSound, 2000, arcs[i].getSound);
-            }
-        }
+        playSoundIfCircleHitBaseline(arcs[i], timeElapsed);
     }
 
     requestAnimationFrame(draw);
