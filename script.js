@@ -57,6 +57,10 @@ class Arc {
         return this.sound;
     };
 
+    get getCenterRadius() {
+        return this.centerRadius;
+    };
+
     calculateNextHit = () => {
         this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
     };
