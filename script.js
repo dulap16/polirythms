@@ -204,15 +204,6 @@ const drawCircle = (pos, radius) => {
     pen.fill();
 }
 
-
-const drawArc = (center, radius, color) => {
-    pen.strokeStyle = color;
-
-    pen.beginPath();
-    pen.arc(center.x, center.y - 7, radius, Math.PI * 1, 2 * Math.PI);
-    pen.stroke();
-}
-
 const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
     const x = Math.cos(angle) * distFromCenter;
     const y = Math.sin(angle) * distFromCenter;
@@ -225,17 +216,6 @@ const drawCircleAtAngle = (angle, distFromCenter, circleRadius, center) => {
     drawCircle(circlePos, circleRadius);
 }
 
-
-let angularVelocities = [];
-const initAngVelocities = () => {
-    let totalTimeOfSimulation = timeOfSimulation;
-    let totalDistTravelled = 100 * Math.PI;
-
-    for (let i = 0; i < nrOfArcs; i++) {
-        angularVelocities[i] = totalDistTravelled / totalTimeOfSimulation;
-        totalDistTravelled = totalDistTravelled - 2 * Math.PI;
-    }
-}
 
 
 const startTime = Date.now();
