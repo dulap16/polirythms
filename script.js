@@ -55,6 +55,9 @@ class Arc {
     get getSound() {
         return this.sound;
     }
+
+    calculateNextHit = () => {
+        this.nextHit = this.nextHit + (Math.PI / this.angVelocity);
     }
 }
 
@@ -82,13 +85,6 @@ document.body.addEventListener('click', function(event) {
         toggleSoundClicked();
     }
 });
-
-
-const calculateNextHit = (lastHit, angVelocity) => {
-    const nextHit = lastHit + (Math.PI / angVelocity);
-
-    return nextHit;
-}
 
 
 let currentVolume = 0;
