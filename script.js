@@ -1,3 +1,9 @@
+const canvas = document.getElementById("canvas");
+const slider = document.getElementById("slider");
+const soundToggle = document.getElementById("sound-toggle");
+const pen = canvas.getContext("2d");
+
+
 let colors = [];
 let nrOfArcs = 0;
 let timeOfSimulation = 0;
@@ -25,12 +31,6 @@ const initAll = () => {
 
     draw();
 }
-
-
-const canvas = document.getElementById("canvas");
-const slider = document.getElementById("slider");
-const soundToggle = document.getElementById("sound-toggle");
-const pen = canvas.getContext("2d");
 
 class Arc {
     constructor(angVelocity, color, sound) {
